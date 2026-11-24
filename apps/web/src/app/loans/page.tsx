@@ -1,0 +1,8 @@
+import type { Metadata } from "next";
+import { House, Car, GraduationCap, BriefcaseBusiness, Wallet, Gem } from "lucide-react";
+import { PublicPage } from "@/components/layout/public-page";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+export const metadata: Metadata = { title: "Explore loans" };
+const categories = [{icon:Wallet,title:"Personal loans",description:"Unsecured borrowing for personal expenses."},{icon:House,title:"Home loans",description:"Financing for a home purchase or construction."},{icon:Car,title:"Vehicle loans",description:"Financing for a car or other eligible vehicle."},{icon:GraduationCap,title:"Education loans",description:"Borrowing for eligible education expenses."},{icon:BriefcaseBusiness,title:"Business loans",description:"Funding for business needs and working capital."},{icon:Gem,title:"Gold loans",description:"Secured borrowing against eligible gold collateral."}];
+export default function Loans() { return <PublicPage eyebrow="Loan discovery" title="Explore loan categories" description="Learn the available borrowing categories. Verified lender products, live filters and comparisons will be added in the marketplace phase."><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{categories.map(({icon:Icon,...c})=><Card key={c.title}><CardContent className="p-6"><Icon className="size-6 text-brand-light dark:text-primary"/><h2 className="mt-4 font-semibold">{c.title}</h2><p className="mt-2 text-sm text-muted-foreground">{c.description}</p><Badge className="mt-5">Catalogue pending</Badge></CardContent></Card>)}</div></PublicPage>; }

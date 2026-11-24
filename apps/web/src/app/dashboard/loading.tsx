@@ -1,0 +1,2 @@
+import { Skeleton } from "@/components/ui/skeleton";
+export default function Loading() { return <div role="status" aria-label="Loading dashboard" className="space-y-6"><span className="sr-only">Loading dashboard…</span><Skeleton className="h-9 w-2/3 max-w-xs"/><Skeleton className="h-48 w-full"/><div className="grid gap-4 sm:grid-cols-2"><Skeleton className="h-32"/><Skeleton className="h-32"/></div><Skeleton className="h-40"/></div>; }
