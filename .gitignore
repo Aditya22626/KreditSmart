@@ -45,3 +45,6 @@ test-results/
 *.pem
 *.key
 secrets/
+
+# Generated Prisma client
+/apps/api/src/generated/prisma/
