@@ -1,26 +1,18 @@
+import { ConsoleLogger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { apiEnv } from './config/api-env';
+import { configureApp } from './config/configure-app';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
+async function bootstrap(): Promise<void> {
+  const env = apiEnv();
+  const app = await NestFactory.create(AppModule, { logger: new ConsoleLogger({ json: true }) });
+  configureApp(app);
   app.enableShutdownHooks();
-
-  app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'http://127.0.0.1:3000',
-    ],
-    credentials: true,
-  });
-
-  const port = Number(process.env.PORT ?? 4000);
-
-  await app.listen(port, '127.0.0.1');
-
-  console.log(
-    `KreditSmart API running on http://localhost:${port}`,
-  );
+  await app.listen(env.port, env.host);
+  new ConsoleLogger('Bootstrap', { json: true }).log(`KreditSmart API listening on ${env.host}:${env.port}`);
 }
-
-void bootstrap();
+void bootstrap().catch(() => {
+  console.error('API startup failed; verify environment configuration and service availability.');
+  process.exitCode = 1;
+});
